@@ -1,29 +1,30 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Burgers from '../views/Burgers.vue'
-import Crear from '../components/Crear.vue'
-import Editar from '../components/Editar.vue'
+import Editar from '../views/Editar.vue'
+import Nueva from '../views/Nueva.vue'
 
 
-const routes = [
+
+export const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home
   },
   {
-    path: '/crear',
-    name: 'Crear',
-    component: Crear
-  },
-  {
-    path: '/editar',
+    path: '/Editar/:id',
     name: 'Editar',
     component: Editar
   },
   {
+    path: '/nueva',
+    name: 'Nueva',
+    component: Nueva
+  },
+  {
     path: '/Burgers',
-    name: 'Hamburguesa',
+    name: 'Burgers',
     component: Burgers
   }
 ]

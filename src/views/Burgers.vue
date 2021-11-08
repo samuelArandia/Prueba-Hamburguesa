@@ -1,11 +1,12 @@
 <template>
   
-  <div>
+  <div class="container">
     <div class="card">
       <h1 class="card-header">
-        Hamburguesas
+         Menú de hamburguesas
       </h1>
-      <p> hola samuel, vas muy bien</p>
+            <button type="button" class="btn btn-primary" v-on:click="nuevo()">Nueva Hamburguesa</button><br>
+          <p>Presiona la hamburguesa que desees editar</p>
           <div class="card-body">
             <table class="table">
               <thead>
@@ -14,54 +15,64 @@
                   <th>Nombres</th>
                   <th>Ingredientes</th>
                   <th>Calorias</th>
-                  <th>Acciones</th>
+                  
                 </tr> 
               </thead>  
               <tbody>
-                <tr v-for="todo in todos" :key="todo.id">
+                <tr v-for="todo in todos" :key="todo.id" v-on:click="editar(todo.id)" >
                   <td>{{todo.id}}</td>
                   <td>{{todo.nombre}}</td>
                   <td>{{todo.ingredientes}}</td>
                   <td>{{todo.calorias}}</td>
-                  <td>
-            <a name="" id="" class="btn btn-primary" href="#" role="button">Editar</a>
-            <a name="" id="" class="btn btn-primary" href="#" role="button">Borrar</a>
-                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
     </div>
+    
+
   </div>      
 
 </template>
 
 <script>
-import axios from 'axios'
+
+import axios from 'axios';
 export default {
+  
     data(){
       return{
         todos:null
       }
     },
-    mounted(){
-      
-      this.getTodos();
+     methods:{
+      editar(id){
+        this.$router.push('/editar/'+ id);
+      },
+      nuevo(){
+        this.$router.push('/Nueva');
+      }
     },
-    methods:{
-        getTodos(){
-            axios 
-            .get('https://prueba-hamburguesas.herokuapp.com/burger/')
-            .then ( response => {
+    mounted:function(){
+      axios.get('https://prueba-hamburguesas.herokuapp.com/burger/')
+      .then ( response => {
               console.log(response)
               this.todos = response.data
             })
             .catch(e=> console.log(e))
         }
-    }
 }
+
 </script>
 
 <style>
-
+button{
+  margin: 2rem;
+  text-align: center;
+  align-items: center;
+  
+}
+p{
+  text-align: center;
+}
 </style>
