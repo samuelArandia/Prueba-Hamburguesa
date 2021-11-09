@@ -28,7 +28,7 @@
 
             <div class="form-group">
                 <button type="button" class="btn btn-primary" v-on:click="editar()"> Editar </button>
-                <button type="button" class="btn btn-danger margen" > Elimanar</button>
+                <button type="button" class="btn btn-danger margen" v-on:click="eliminar()" > Elimanar</button>
                 <button type="button" class="btn btn-dark margen" v-on:click="salir()"> Salir</button>
             </div> 
         </form>   
@@ -46,16 +46,18 @@ export default {
             form:{
                 "id":"",
                 "nombre": "",
-                "ingredientes": [""],
+                "ingredientes":[""],
                 "calorias":""
             }
         }
     },
     methods:{
         editar(){
-            axios.get("https://prueba-hamburguesas.herokuapp.com/burger",this.form)
+            this.form.ingredientes=Array.from(this.form);
+            axios.post("https://prueba-hamburguesas.herokuapp.com/burger/",this.form)
             .then( data=>{
                 console.log(data);
+                alert('Se ha reliazado con exito')
             })
         },
         salir(){
@@ -64,8 +66,8 @@ export default {
         eliminar(){
             var enviar = {
                 "todoId" : this.form.todoId
-            }
-            axios.delete("https://prueba-hamburguesas.herokuapp.com/burger", {headers : enviar})
+            };
+            axios.delete("https://prueba-hamburguesas.herokuapp.com/burger",enviar)
             .then(datos =>{
                 console.log(datos);
                 this.$router.push("/Burgers");
